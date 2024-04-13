@@ -25,7 +25,7 @@ def int_to_roman(number):
 def calculate():
   if request.method == "POST":
     num=request.form.get("number")
-    return render_template("result.html", number_decimal=int(num), number_roman=int_to_roman(int(num)))
+    return render_template("result.html", number_decimal=int(num), number_roman=int_to_roman(int(num)), Developer_Name = Sait)
   else:
     return render_template("index.html")
 

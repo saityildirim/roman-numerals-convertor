@@ -14,17 +14,12 @@ Parameters:
     Type: "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>"
     Default: "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64"
 
-  instanceType:
-    Description: Select your instance type.
-    Type: String
-    Default: t2.micro
-
 Resources:
   myWebServer:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref imageID
-      InstanceType: !Ref instanceType
+      InstanceType: t2.micro
       KeyName: !Ref myKeyName
       SecurityGroupIds:
         - !Ref mySecGrp
@@ -37,16 +32,14 @@ Resources:
         dnf install python3 -y 
         dnf install python3-pip -y
         pip3 install flask==2.3.3
-
-        FOLDER="https://raw.githubusercontent.com/saityildirim/kittens-static-website-ec2/main/static-web"
-        cd /var/www/html
-        wget ${FOLDER}/index.html
-        wget ${FOLDER}/cat0.jpg
-        wget ${FOLDER}/cat1.jpg
-        wget ${FOLDER}/cat2.jpg
-        wget ${FOLDER}/cat3.png
-        systemctl start httpd
-        systemctl enable httpd
+        cd /home/ec2-user
+        chmod -R 777 /home/ec2-user
+        mkdir templates && cd templates
+        wget https://raw.githubusercontent.com/saityildirim/roman-numerals-convertor/main/templates/index.html 
+        wget https://raw.githubusercontent.com/saityildirim/roman-numerals-convertor/main/templates/result.html
+        cd ..
+        wget https://raw.githubusercontent.com/saityildirim/roman-numerals-convertor/main/roman-numerals-converter-app.py
+        /bin/python3 /home/ec2-user/roman-numerals-converter-app.py
 
   mySecGrp:
     Type: AWS::EC2::SecurityGroup
