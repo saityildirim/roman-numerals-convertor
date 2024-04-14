@@ -27,11 +27,8 @@ def calculate():
     num=request.form.get("number")
     return render_template("result.html", number_decimal=int(num), number_roman=int_to_roman(int(num)), Developer_Name = "Sait")
   else:
-<<<<<<< HEAD
     return render_template("index.html", Developer_Name = "Sait")
-=======
-    return render_template("index.html", Developer_Name = "Sait" )
->>>>>>> 00d2203954bb1f1a261b7f88066379fc9b48f4a8
+
 
 
 
