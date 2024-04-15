@@ -21,13 +21,18 @@ def int_to_roman(number):
   return roman_numeral
 
 
-@app.route('/', methods=["GET", "POST"])
+@app.route('/', methods=["POST", "GET"])
 def calculate():
   if request.method == "POST":
-    num=request.form.get("number")
-    return render_template("result.html", number_decimal=int(num), number_roman=int_to_roman(int(num)), Developer_Name = "Sait")
+    alpha=request.form.get("number")
+    if not alpha.isdecimal():
+      return render_template("index.html", Developer_Name = "Sait", not_valid = True)
+    num = int(alpha)
+    if not 0 < num < 4000:
+      return render_template("index.html", Developer_Name = "Sait", not_valid = True)
+    return render_template("result.html", number_decimal=int(num), number_roman=int_to_roman(num), Developer_Name = "Sait")
   else:
-    return render_template("index.html", Developer_Name = "Sait")
+    return render_template("index.html", Developer_Name = "Sait", not_valid = False)
 
 
 
