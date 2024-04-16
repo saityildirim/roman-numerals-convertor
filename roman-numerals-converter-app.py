@@ -22,7 +22,7 @@ def calculate():
     number = int(alpha)
     if not 0 < number < 4000:
       return render_template("index.html", Developer_Name = "Sait Y", not_valid = True)
-    return render_template("result.html", number_decimal = number, number_roman = convert(number), Developer_Name = "Sait")
+    return render_template("result.html", number_decimal = number, number_roman = convert(number), Developer_Name = "Sait Y")
   else:
     return render_template("index.html", Developer_Name = "Sait Y", not_valid = False)
 
