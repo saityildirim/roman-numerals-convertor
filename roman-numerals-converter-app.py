@@ -1,23 +1,15 @@
 from flask import Flask, render_template, request
+
 app = Flask(__name__)
 
-def int_to_roman(number):
-  """Converts an integer to a Roman numeral.
-  Args:
-      number: An integer between 1 and 3999.
-  Returns:
-      The Roman numeral representation of the number.
-  """
-      
-  roman_numerals = { 1000: "M", 900: "CM", 500: "D", 400: "CD", 100: "C", 90: "XC", 50: "L", 40: "XL",
-      10: "X", 9: "IX", 5: "V", 4: "IV", 1: "I" }
-
+def convert(decimal_num):
+  roman_numerals = { 1000: "M", 900: "CM", 500: "D", 400: "CD", 100: "C", 90: "XC", 50: "L", 40: "XL", 10: "X", 9: "IX", 5: "V", 4: "IV", 1: "I" }
   roman_numeral = ""
-  for value, numeral in roman_numerals.items():
-    while number >= value:
-      roman_numeral += numeral
-      number -= value
-
+  
+  for value, roman_symbol in roman_numerals.items():
+    while decimal_num >= value:
+      roman_numeral += roman_symbol
+      decimal_num -= value
   return roman_numeral
 
 
@@ -26,14 +18,13 @@ def calculate():
   if request.method == "POST":
     alpha=request.form.get("number")
     if not alpha.isdecimal():
-      return render_template("index.html", Developer_Name = "Sait", not_valid = True)
-    num = int(alpha)
-    if not 0 < num < 4000:
-      return render_template("index.html", Developer_Name = "Sait", not_valid = True)
-    return render_template("result.html", number_decimal=int(num), number_roman=int_to_roman(num), Developer_Name = "Sait")
+      return render_template("index.html", Developer_Name = "Sait Y", not_valid = True)
+    number = int(alpha)
+    if not 0 < number < 4000:
+      return render_template("index.html", Developer_Name = "Sait Y", not_valid = True)
+    return render_template("result.html", number_decimal = number, number_roman = convert(number), Developer_Name = "Sait")
   else:
-    return render_template("index.html", Developer_Name = "Sait", not_valid = False)
-
+    return render_template("index.html", Developer_Name = "Sait Y", not_valid = False)
 
 
 
